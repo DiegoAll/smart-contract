@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.7.3;
+
+
+contract vaca{
+    address payable organizador; // Dirección de la persona que crea la vaca.
+    address payable beneficiario; // Dirección de la persona que se beneficia.
+    uint public acumulado; //Valor actual de la vaca
+    string public motivo;
+    bool public vacacompleta; //bandera de control para saber si la vaca va o está cerrada.
+    
+    
+    constructor(){
+        vacacompleta = true; //Inicio el contrato con la posibilidad de crear una vacacompleta
+        
+        
+    }    
+    
+    function crearVaca(address payable _beneficiario, string calldata _motivo) public{
+        require(vacacompleta);
+        vacacompleta=false;
+        beneficiario = _beneficiario;
+        organizador = msg.sender;
+        acumulado = 0;
+        motivo = _motivo;
+    }
+    
+    
+    function cerrarVaca() public{
+        require(organizador==msg.sender);
+        require(!vacacompleta);
+        beneficiario.transfer(acumulado);
+        vacacompleta= true;
+        
+    }
+    
+    
+    function aportar() public payable{
+        require(vacacompleta==false);
+        acumulado = acumulador + msg.value;
+    }
+    
+    
+    
+}
