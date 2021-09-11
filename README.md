@@ -1,5 +1,5 @@
 ### Blockchain Smart Contract
 
-##Solidity
+## Solidity
 
 Simple smart contract
